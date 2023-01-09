@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Max Franke <Max.Franke@vis.uni-stuttgart.de>">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="map-transition-helper.umd.js"></script>
+  <script type="module" src="main.js"></script>
+
+  <title>Demo and API Tests</title>
+</head>
+<body>
+  <header>
+    <h1>API Tests</h1>
+  </header>
+
+  <main>
+    <canvas width="800" height="600"></canvas>
+  </main>
+
+  <footer>
+    <fieldset>
+      <legend>Transition method</legend>
+
+      <select id="transition-method">
+        <option value="concatenated" selected>concatenated</option>
+        <option value="linear">linear</option>
+        <option value="box">box</option>
+        <option value="triangle">triangle</option>
+        <option value="around world">around world</option>
+      </select>
+
+      <button id="fetch-failed">Fetch failed</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Transition controls</legend>
+
+      <button id="initialize">Initialize</button>
+      <button id="play">Play</button>
+      <button id="pause">Pause</button>
+      <button id="cancel">Cancel</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Set frame #</legend>
+      <span id="current-frame-nr">Current: ?</span>
+      <input type="number" min="0" value="0" step="1" size="2" id="frame-nr-input">
+      <button id="submit-frame-nr">Set</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Transition events</legend>
+
+      <span id="event-frame" class="event-indicator">frame</span>
+      <span id="event-render" class="event-indicator">render</span>
+      <span id="event-play" class="event-indicator">play</span>
+      <span id="event-pause" class="event-indicator">pause</span>
+      <span id="event-cancel" class="event-indicator">cancel</span>
+      <span id="event-finish" class="event-indicator">finish</span>
+    </fieldset>
+
+    <fieldset>
+      <legend>TileMap events</legend>
+
+      <span id="event-tileadded" class="event-indicator">tileadded</span>
+      <span id="event-tileloaded" class="event-indicator">tileloaded</span>
+      <span id="event-tilefailed" class="event-indicator">tilefailed</span>
+      <span id="event-loaded" class="event-indicator">loaded</span>
+    </fieldset>
+
+    <fieldset>
+      <legend>TileMap progress</legend>
+      <span id="tilemap-progress">0s+0c+0f / 0</span>
+    </fieldset>
+
+    <fieldset>
+      <legend>Cursor position</legend>
+      <span id="cursor-position">outside canvas</span>
+    </fieldset>
+  </footer>
+</body>
+</html>

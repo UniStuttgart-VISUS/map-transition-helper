@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "rootDir": "./src/",
+    "module": "esnext",
+    "target": "esnext",
+    "allowJs": true,
+    "moduleResolution": "nodenext",
+    "declaration": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true
+  },
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "include": [
+    "./src"
+  ]
+}

@@ -1,0 +1,11 @@
+                             Release Notes
+                             -------------
+
+2022-12-29                                                        v0.3.2
+
+First public release with stable API and documentation. Fixed some last
+exceptions in edge cases, such as trying to start a newly-finished
+transition. Fixed blurry tile rendering.
+
+
+; vim: tw=72
