@@ -39,15 +39,15 @@ function updateTilemapStatus() {
 requestAnimationFrame(updateTilemapStatus);
 
 // places
-const stuttgart1 = { lat: 48.7449, lng: 9.1048, zoom: 17 };
+const stuttgart1 = { label: 'stuttgart', lat: 48.7449, lng: 9.1048, zoom: 17 };
 const stuttgart2 = { ...stuttgart1, zoom: 12 }; // zoomed out
-const pforzheim = { lat: 48.8905, lng: 8.7037, zoom: 12 };
-const germersheim = { lat: 49.222, lng: 8.3661, zoom: 12 };
-const frankfurt1 = { lat: 50.1013, lng: 8.6648, zoom: 12 };
+const pforzheim = { label: 'pforzheim', lat: 48.8905, lng: 8.7037, zoom: 12 };
+const germersheim = { label: 'germersheim', lat: 49.222, lng: 8.3661, zoom: 12 };
+const frankfurt1 = { label: 'frankfurt', lat: 50.1013, lng: 8.6648, zoom: 12 };
 const frankfurt2 = { ...frankfurt1, zoom: 3 };
-const newYork1 = { lat: 40.7084, lng: -74.0176, zoom: 3 };
+const newYork1 = { label: 'new york', lat: 40.7084, lng: -74.0176, zoom: 3 };
 const newYork2 = { ...newYork1, zoom: 7 };
-const philadelphia = { lat: 39.9417, lng: -75.1571, zoom: 13 };
+const philadelphia = { label: 'philadelphia', lat: 39.9417, lng: -75.1571, zoom: 13 };
 
 const places = [stuttgart1, pforzheim, germersheim, frankfurt1, newYork1, philadelphia];
 
@@ -276,14 +276,47 @@ function checkVisibility(evt, frame) {
   places.forEach((place) => {
     const point = frame.unproject(place);
     const isVisible = frame.isCoordinateVisible(place);
-    const dir = Math.atan2(point.y - y0, point.x - x0);
 
-    ctx.beginPath();
-    ctx.strokeStyle = isVisible ? 'blue' : 'red';
-    ctx.lineWidth = 2;
-    ctx.moveTo(x0, y0);
-    ctx.lineTo(point.x, point.y);
-    ctx.stroke();
+    if (isVisible) {
+      // draw point
+      ctx.beginPath();
+      ctx.strokeStyle = 'firebrick';
+      ctx.lineWidth = 2;
+      ctx.fillStyle = 'yellow';
+      ctx.ellipse(point.x, point.y, 5, 5, 0, 2 * Math.PI);
+      ctx.fill();
+    } else {
+      // draw an arrow at the edge (y is down)
+      const dir = Math.atan2(-point.y + y0, point.x - x0);
+      const aspectDir = Math.atan2(height, width);
+
+      let x, y;
+
+      if (-aspectDir < dir && aspectDir >= dir) {
+        // right border
+        x = width;
+        y = y0 + x0 * Math.tan(-dir);
+      } else if (aspectDir < dir && Math.PI - aspectDir >= dir) {
+        // top border
+        x = x0 + y0 * Math.tan(Math.PI / 2 - dir);
+        y = 0;
+      } else if (-Math.PI + aspectDir < dir && -aspectDir >= dir) {
+        // bottom border
+        x = x0 + y0 * Math.tan((3 * Math.PI) / 2 + dir);
+        y = height;
+      } else {
+        // left border
+        x = 0;
+        y = y0 + x0 * Math.tan(dir - Math.PI);
+      }
+
+      ctx.beginPath();
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 2;
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
   });
   ctx.restore();
 }
