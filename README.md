@@ -1,3 +1,8 @@
+This library provides functionalities to define and compose animated transitions on maps, which are then rendered in a web page.
+The WebMercator map tiles required to show the transition are pre-loaded to ensure a smooth animation.
+**npm** package link: [https://www.npmjs.com/package/map-transition-helper](https://www.npmjs.com/package/map-transition-helper).
+
+
 ## Table of Contents
 - [Installation](#installation)
 - [API Description](#api-description)
@@ -45,13 +50,19 @@ $ npx rollup -c
 ```
 
 To use the library in another project, either build it and use the generated ES module[^esm] (`lib/map-transition-helper.esm.js`) or the CommonJS build (`lib/map-transition-helper.umd.js`, global name `MapTransitionHelper`) directly.
-Alternatively, it can be installed as an npm dependency (from GitHub) by adding the following to the `dependencies` property in the `package.json` of your project (with the appropriate version at the end):
+Alternatively, it can be installed as an npm package, either from the command line:
+
+``` bash
+$ npm install map-transition-helper@0.4.0
+```
+
+or by adding the following to the `dependencies` property in the `package.json` of your project (with the appropriate version):
 
 ``` json
 {
     ...
     "dependencies": {
-        "map-transition-helper": "git+https://github.com/UniStuttgart-VISUS/map-transition-helper.git#v0.3.2",
+        "map-transition-helper": "0.4.0",
         ...
     },
     ...
