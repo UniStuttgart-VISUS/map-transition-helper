@@ -77,46 +77,10 @@ export default class Frame {
    * @param coord Coordinate
    * @returns true if point is visible and false else
    */
-  public isCoordinateVisible({ lat, lng }: Coordinate): boolean {
-    const x = Math.floor((lng + 180) * ((256 * Math.pow(2, this.zoom)) / 360));
-    const y = Math.floor(
-      (1 -
-        Math.log(Math.tan((lat * Math.PI) / 180) + 1 / Math.cos((lat * Math.PI) / 180)) / Math.PI) *
-        Math.pow(2, this.zoom - 1) *
-        256,
-    );
+  public isCoordinateVisible(coord: Coordinate): boolean {
+    const { x, y } = this.unproject(coord);
 
-    const upperY = this.offset.x - this.canvasSize.y / 2;
-    const lowerY = this.offset.y + this.canvasSize.y / 2;
-
-    let leftX = this.offset.x - this.canvasSize.x / 2;
-    let rightX = this.offset.y + this.canvasSize.x / 2;
-
-    const maxX = Math.floor(256 * Math.pow(2, this.zoom));
-
-    while (leftX < 0) {
-      leftX += maxX;
-    }
-
-    while (rightX > maxX) {
-      rightX -= maxX;
-    }
-
-    if (leftX > rightX) {
-      if (x >= leftX || x <= rightX) {
-        if (y >= upperY && y <= lowerY) {
-          return true;
-        }
-      }
-    } else {
-      if (x >= leftX && x <= rightX) {
-        if (y >= upperY && y <= lowerY) {
-          return true;
-        }
-      }
-    }
-
-    return false;
+    return !(x < 0 || y < 0 || x >= this.canvasSize.x || y >= this.canvasSize.y);
   }
 
   /**

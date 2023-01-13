@@ -3,7 +3,7 @@
 
 2023-01-xx                                                        v0.4.0
 
-TODO
+Fixed visibility checks for coordinates in the Frame class.
 
 
 2022-12-29                                                        v0.3.2
