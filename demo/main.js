@@ -250,7 +250,7 @@ requestAnimationFrame((_) => {
     const frame = transition.getFrame(transition.currentFrameIndex);
     if (frame === undefined) return;
 
-    const viewPoint = frame.project({ x, y });
+    const viewPoint = frame.unproject({ x, y });
 
     cursorPosition.innerHTML = `
       x: ${x}px,
@@ -274,7 +274,7 @@ function checkVisibility(evt, frame) {
   ctx.save();
   ctx.resetTransform();
   places.forEach((place) => {
-    const point = frame.unproject(place);
+    const point = frame.project(place);
     const isVisible = frame.isCoordinateVisible(place);
 
     if (isVisible) {
