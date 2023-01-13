@@ -324,14 +324,6 @@ function checkVisibility(evt, frame) {
       ctx.lineTo(x2, y2);
       ctx.closePath();
       ctx.fill();
-
-      ctx.beginPath();
-      ctx.strokeStyle = 'black';
-      ctx.lineWidth = 1;
-      ctx.fillStyle = 'none';
-      ctx.moveTo(x0, y0);
-      ctx.lineTo(x0 + 50 * Math.cos(dir), y0 + 50 * Math.sin(dir));
-      ctx.stroke();
     }
   });
   ctx.restore();
