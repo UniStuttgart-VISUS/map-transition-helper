@@ -46,7 +46,7 @@ export default class Frame {
    * @param canvasCoordinate canvas coordinate
    * @returns viewpoint with zoom of the frame an to x,y corresponding lat lon
    */
-  project(canvasCoordinate: Point2D): ViewPoint {
+  unproject(canvasCoordinate: Point2D): ViewPoint {
     const transCordX = canvasCoordinate.x - this.canvasSize.x / 2;
     const transCordY = canvasCoordinate.y - this.canvasSize.y / 2;
 
@@ -78,7 +78,7 @@ export default class Frame {
    * @returns true if point is visible and false else
    */
   public isCoordinateVisible(coord: Coordinate): boolean {
-    const { x, y } = this.unproject(coord);
+    const { x, y } = this.project(coord);
 
     return !(x < 0 || y < 0 || x >= this.canvasSize.x || y >= this.canvasSize.y);
   }
@@ -89,7 +89,7 @@ export default class Frame {
    * @param coord Coordinate
    * @returns canvas pixel coordinates
    */
-  public unproject({ lat, lng }: Coordinate | ViewPoint): Point2D {
+  public project({ lat, lng }: Coordinate | ViewPoint): Point2D {
     const maxX = Math.floor(256 * Math.pow(2, this.zoom));
 
     let x = Math.floor((lng + 180) * ((256 * Math.pow(2, this.zoom)) / 360));
