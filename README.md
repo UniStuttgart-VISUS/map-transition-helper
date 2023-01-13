@@ -53,7 +53,7 @@ To use the library in another project, either build it and use the generated ES 
 Alternatively, it can be installed as an npm package, either from the command line:
 
 ``` bash
-$ npm install map-transition-helper@0.3.2
+$ npm install map-transition-helper@0.4.0
 ```
 
 or by adding the following to the `dependencies` property in the `package.json` of your project (with the appropriate version):
@@ -62,7 +62,7 @@ or by adding the following to the `dependencies` property in the `package.json` 
 {
     ...
     "dependencies": {
-        "map-transition-helper": "0.3.2",
+        "map-transition-helper": "0.4.0",
         ...
     },
     ...
@@ -502,13 +502,15 @@ The properties are the same as the parameters of the constructor.
 
 #### <a id="class-frame--methods"></a>Methods
 
-##### `project(coord: Point2D): ViewPoint`
-
-Project the canvas pixel coordinate `coord` to the latitude, longitude and zoom level described by the returned `ViewPoint`.
-
-##### `unproject(coord: Coordinate | ViewPoint): Point2D`
+##### <a id="class-frame--project"></a>`project(coord: Coordinate | ViewPoint): Point2D`
 
 Calculate the pixel coordinates of real-world coordinates.
+This is the inverse of [`unproject`](#class-frame--unproject).
+
+##### <a id="class-frame--unproject"></a>`unproject(coord: Point2D): ViewPoint`
+
+Calculate the latitude, longitude and zoom level shown at the pixel coordinate `coord`.
+This is the inverse of [`project`](#class-frame--project).
 
 ##### `isCoordinateVisible(c: Coordinate): boolean`
 
@@ -845,7 +847,7 @@ const transition = await preloadTransition(
 // each frame, update the overlay SVG by drawing a dot where Stuttgart is
 transition.addEventListener('frame', () => {
   const frame = transition.currentFrame;
-  const { x, y } = frame.unproject(stuttgart);
+  const { x, y } = frame.project(stuttgart);
   svg.innerHTML = `
     <circle r="5"
             cx="${x}"
