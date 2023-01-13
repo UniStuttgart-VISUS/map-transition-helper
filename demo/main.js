@@ -283,11 +283,11 @@ function checkVisibility(evt, frame) {
       ctx.strokeStyle = 'firebrick';
       ctx.lineWidth = 2;
       ctx.fillStyle = 'yellow';
-      ctx.ellipse(point.x, point.y, 5, 5, 0, 2 * Math.PI);
-      ctx.fill();
+      ctx.ellipse(point.x, point.y, 5, 5, 0, 0, 2 * Math.PI);
+      ctx.stroke();
     } else {
       // draw an arrow at the edge (y is down)
-      const dir = Math.atan2(-point.y + y0, point.x - x0);
+      const dir = Math.atan2(point.y - y0, point.x - x0);
       const aspectDir = Math.atan2(height, width);
 
       let x, y;
@@ -295,26 +295,42 @@ function checkVisibility(evt, frame) {
       if (-aspectDir < dir && aspectDir >= dir) {
         // right border
         x = width;
-        y = y0 + x0 * Math.tan(-dir);
-      } else if (aspectDir < dir && Math.PI - aspectDir >= dir) {
-        // top border
-        x = x0 + y0 * Math.tan(Math.PI / 2 - dir);
-        y = 0;
+        y = y0 + x0 * Math.tan(dir);
       } else if (-Math.PI + aspectDir < dir && -aspectDir >= dir) {
+        // top border
+        x = x0 + y0 * Math.tan(Math.PI / 2 + dir);
+        y = 0;
+      } else if (aspectDir < dir && Math.PI - aspectDir >= dir) {
         // bottom border
-        x = x0 + y0 * Math.tan((3 * Math.PI) / 2 + dir);
+        x = x0 + y0 * Math.tan((3 * Math.PI) / 2 - dir);
         y = height;
       } else {
         // left border
         x = 0;
-        y = y0 + x0 * Math.tan(dir - Math.PI);
+        y = y0 + x0 * Math.tan(-dir + Math.PI);
       }
 
+      const arrowSize = 15;
+      const x1 = x + arrowSize * Math.cos(dir + Math.PI + Math.PI / 8);
+      const y1 = y + arrowSize * Math.sin(dir + Math.PI + Math.PI / 8);
+      const x2 = x + arrowSize * Math.cos(dir + Math.PI - Math.PI / 8);
+      const y2 = y + arrowSize * Math.sin(dir + Math.PI - Math.PI / 8);
+
       ctx.beginPath();
-      ctx.strokeStyle = 'red';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'none';
+      ctx.fillStyle = 'black';
+      ctx.moveTo(x, y);
+      ctx.lineTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 1;
+      ctx.fillStyle = 'none';
       ctx.moveTo(x0, y0);
-      ctx.lineTo(x, y);
+      ctx.lineTo(x0 + 50 * Math.cos(dir), y0 + 50 * Math.sin(dir));
       ctx.stroke();
     }
   });
