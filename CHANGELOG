@@ -3,7 +3,9 @@
 
 2023-01-xx                                                        v0.4.0
 
-Fixed visibility checks for coordinates in the Frame class.
+Fixed visibility checks for coordinates in the `Frame` class. Switched
+the names of the functions `project` and `unproject` in the `Frame`
+class to better align with their respective behavior.
 
 
 2022-12-29                                                        v0.3.2
