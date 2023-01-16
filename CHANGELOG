@@ -1,7 +1,12 @@
                              Release Notes
                              -------------
 
-2023-01-xx                                                        v0.4.0
+2023-01-xx                                                        v0.4.1
+
+tba
+
+
+2023-01-13                                                        v0.4.0
 
 Fixed visibility checks for coordinates in the `Frame` class. Switched
 the names of the functions `project` and `unproject` in the `Frame`
