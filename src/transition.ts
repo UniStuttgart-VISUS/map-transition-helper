@@ -126,14 +126,13 @@ export default class Transition extends EventTarget {
     cancelAnimationFrame(this.rafId);
     this._transitionState = TransitionState.PAUSED;
     this._currentFrameIndex = this._reverseDirection ? this._frameArray.length - 1 : 0;
-    this.rafId = requestAnimationFrame(this.doFrame.bind(this));
+    this.rafId = requestAnimationFrame((ts) => this.doFrame(ts, true));
 
     this.dispatchEvent(new CustomEvent('cancel'));
-    this.dispatchEvent(new CustomEvent('pause'));
   }
 
-  private doFrame() {
-    this._currentFrameIndex += this._reverseDirection ? -1 : 1;
+  private doFrame(_timestamp: DOMHighResTimeStamp, cancelled = false) {
+    if (!cancelled) this._currentFrameIndex += this._reverseDirection ? -1 : 1;
     this.dispatchEvent(new CustomEvent('frame'));
 
     this.renderFrame(this.context);
@@ -150,6 +149,8 @@ export default class Transition extends EventTarget {
     if (this._transitionState === TransitionState.RUNNING) {
       this.rafId = requestAnimationFrame(this.doFrame.bind(this));
     }
+
+    if (cancelled) this.dispatchEvent(new CustomEvent('pause'));
   }
 
   /**

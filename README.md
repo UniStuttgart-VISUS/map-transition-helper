@@ -598,6 +598,7 @@ Will fire a `pause` event.
 Stop the animation immediately, reset to the first (or [last](#reversed-boolean)) frame, and render that to the canvas.
 
 Will fire `cancel`, `pause`, `frame` and `render` events.
+The `cancel` event is fired immediately, but the first (or last) frame is only rendered in the next browser frame, and the other events are fired then.
 
 #### <a id="class-transition--events"></a>Events
 
