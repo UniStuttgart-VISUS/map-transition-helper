@@ -284,6 +284,7 @@ function checkVisibility(evt, frame) {
       ctx.lineWidth = 2;
       ctx.fillStyle = 'yellow';
       ctx.ellipse(point.x, point.y, 5, 5, 0, 0, 2 * Math.PI);
+      ctx.fill();
       ctx.stroke();
     } else {
       // draw an arrow at the edge (y is down)
