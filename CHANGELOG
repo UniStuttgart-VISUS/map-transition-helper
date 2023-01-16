@@ -3,7 +3,7 @@
 
 2023-01-xx                                                        v0.4.1
 
-tba
+Fixed `Transition.cancel()` stepping one frame after cancellation.
 
 
 2023-01-13                                                        v0.4.0
