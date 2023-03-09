@@ -120,6 +120,19 @@ export default class Frame {
     };
   }
 
+  /**
+   * Calculate the position at the border of the frame that is in the
+   * direction of a coordinate. This can be used for positions that are
+   * visible in the current frame as well, but should not be.
+   *
+   * Returns an object with the x and y coordinates relative to the frame, the
+   * border (top, left, bottom, or right) at which the shortest path to the
+   * coordinate leaves the frame, and the direction (in radians) towards the
+   * point from the center of the frame.
+   *
+   * @param pos    Coordinate
+   * @returns obj  Positioning properties
+   */
   borderPosition(pos: Coordinate | ViewPoint): {
     x: number;
     y: number;
