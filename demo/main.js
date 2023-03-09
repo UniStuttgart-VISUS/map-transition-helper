@@ -289,34 +289,13 @@ function checkVisibility(evt, frame) {
       ctx.stroke();
     } else {
       // draw an arrow at the edge (y is down)
-      const dir = Math.atan2(point.y - y0, point.x - x0);
-      const aspectDir = Math.atan2(height, width);
-
-      let x, y;
-
-      if (-aspectDir < dir && aspectDir >= dir) {
-        // right border
-        x = width;
-        y = y0 + x0 * Math.tan(dir);
-      } else if (-Math.PI + aspectDir < dir && -aspectDir >= dir) {
-        // top border
-        x = x0 + y0 * Math.tan(Math.PI / 2 + dir);
-        y = 0;
-      } else if (aspectDir < dir && Math.PI - aspectDir >= dir) {
-        // bottom border
-        x = x0 + y0 * Math.tan((3 * Math.PI) / 2 - dir);
-        y = height;
-      } else {
-        // left border
-        x = 0;
-        y = y0 + x0 * Math.tan(-dir + Math.PI);
-      }
+      const { x, y, direction } = frame.borderPosition(place);
 
       const arrowSize = 15;
-      const x1 = x + arrowSize * Math.cos(dir + Math.PI + Math.PI / 8);
-      const y1 = y + arrowSize * Math.sin(dir + Math.PI + Math.PI / 8);
-      const x2 = x + arrowSize * Math.cos(dir + Math.PI - Math.PI / 8);
-      const y2 = y + arrowSize * Math.sin(dir + Math.PI - Math.PI / 8);
+      const x1 = x + arrowSize * Math.cos(direction + Math.PI + Math.PI / 8);
+      const y1 = y + arrowSize * Math.sin(direction + Math.PI + Math.PI / 8);
+      const x2 = x + arrowSize * Math.cos(direction + Math.PI - Math.PI / 8);
+      const y2 = y + arrowSize * Math.sin(direction + Math.PI - Math.PI / 8);
 
       ctx.beginPath();
       ctx.strokeStyle = 'none';
