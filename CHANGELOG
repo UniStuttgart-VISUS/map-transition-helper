@@ -1,7 +1,14 @@
                              Release Notes
                              -------------
 
-2023-01-xx                                                        v0.4.0
+2023-03-09                                                        v0.4.1
+
+Fixed `Transition.cancel()` stepping one frame after cancellation. Added
+a convenience method to calculate the border position of a frame towards
+a coordinates outside of the visible area.
+
+
+2023-01-13                                                        v0.4.0
 
 Fixed visibility checks for coordinates in the `Frame` class. Switched
 the names of the functions `project` and `unproject` in the `Frame`

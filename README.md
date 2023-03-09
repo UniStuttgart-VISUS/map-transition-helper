@@ -53,7 +53,7 @@ To use the library in another project, either build it and use the generated ES 
 Alternatively, it can be installed as an npm package, either from the command line:
 
 ``` bash
-$ npm install map-transition-helper@0.4.0
+$ npm install map-transition-helper@0.4.1
 ```
 
 or by adding the following to the `dependencies` property in the `package.json` of your project (with the appropriate version):
@@ -62,7 +62,7 @@ or by adding the following to the `dependencies` property in the `package.json` 
 {
     ...
     "dependencies": {
-        "map-transition-helper": "0.4.0",
+        "map-transition-helper": "0.4.1",
         ...
     },
     ...
@@ -516,6 +516,13 @@ This is the inverse of [`project`](#class-frame--project).
 
 Checks if the coordinate is within the drawable area of the canvas in the frame.
 
+##### `borderPosition(c: Coordinate | ViewPoint): { x, y, border, direction }`
+
+Calculate the position at the border of the frame that is in the direction of a coordinate.
+This can be used for positions that are visible in the current frame as well, but should not be.
+Returns an object with the x and y coordinates relative to the frame, the border (top, left, bottom, or right) at which the shortest path to the coordinate leaves the frame, and the direction (in radians) towards the point from the center of the frame.
+
+
 
 ### Class `Transition`
 
@@ -598,6 +605,7 @@ Will fire a `pause` event.
 Stop the animation immediately, reset to the first (or [last](#reversed-boolean)) frame, and render that to the canvas.
 
 Will fire `cancel`, `pause`, `frame` and `render` events.
+The `cancel` event is fired immediately, but the first (or last) frame is only rendered in the next browser frame, and the other events are fired then.
 
 #### <a id="class-transition--events"></a>Events
 
