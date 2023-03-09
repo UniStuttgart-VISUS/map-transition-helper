@@ -48,8 +48,9 @@ const frankfurt2 = { ...frankfurt1, zoom: 3 };
 const newYork1 = { label: 'new york', lat: 40.7084, lng: -74.0176, zoom: 3 };
 const newYork2 = { ...newYork1, zoom: 7 };
 const philadelphia = { label: 'philadelphia', lat: 39.9417, lng: -75.1571, zoom: 13 };
+const tokyo = { label: 'Tōkyō', lat: 35.689, lng: 139.692, zoom: 8 };
 
-const places = [stuttgart1, pforzheim, germersheim, frankfurt1, newYork1, philadelphia];
+const places = [stuttgart1, pforzheim, germersheim, frankfurt1, newYork1, philadelphia, tokyo];
 
 // intermediate transitions
 const zoomOutStuttgart = createTransitionFunction(
