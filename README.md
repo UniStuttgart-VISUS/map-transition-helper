@@ -516,6 +516,13 @@ This is the inverse of [`project`](#class-frame--project).
 
 Checks if the coordinate is within the drawable area of the canvas in the frame.
 
+##### `borderPosition(c: Coordinate | ViewPoint): { x, y, border, direction }`
+
+Calculate the position at the border of the frame that is in the direction of a coordinate.
+This can be used for positions that are visible in the current frame as well, but should not be.
+Returns an object with the x and y coordinates relative to the frame, the border (top, left, bottom, or right) at which the shortest path to the coordinate leaves the frame, and the direction (in radians) towards the point from the center of the frame.
+
+
 
 ### Class `Transition`
 

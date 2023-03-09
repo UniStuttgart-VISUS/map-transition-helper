@@ -77,7 +77,7 @@ export default class Frame {
    * @param coord Coordinate
    * @returns true if point is visible and false else
    */
-  public isCoordinateVisible(coord: Coordinate): boolean {
+  isCoordinateVisible(coord: Coordinate): boolean {
     const { x, y } = this.project(coord);
 
     return !(x < 0 || y < 0 || x >= this.canvasSize.x || y >= this.canvasSize.y);
@@ -89,7 +89,7 @@ export default class Frame {
    * @param coord Coordinate
    * @returns canvas pixel coordinates
    */
-  public project({ lat, lng }: Coordinate | ViewPoint): Point2D {
+  project({ lat, lng }: Coordinate | ViewPoint): Point2D {
     const maxX = Math.floor(256 * Math.pow(2, this.zoom));
 
     let x = Math.floor((lng + 180) * ((256 * Math.pow(2, this.zoom)) / 360));
@@ -118,6 +118,63 @@ export default class Frame {
       x: x + this.canvasSize.x / 2,
       y: y + this.canvasSize.y / 2,
     };
+  }
+
+  /**
+   * Calculate the position at the border of the frame that is in the
+   * direction of a coordinate. This can be used for positions that are
+   * visible in the current frame as well, but should not be.
+   *
+   * Returns an object with the x and y coordinates relative to the frame, the
+   * border (top, left, bottom, or right) at which the shortest path to the
+   * coordinate leaves the frame, and the direction (in radians) towards the
+   * point from the center of the frame.
+   *
+   * @param pos    Coordinate
+   * @returns obj  Positioning properties
+   */
+  borderPosition(pos: Coordinate | ViewPoint): {
+    x: number;
+    y: number;
+    border: 'bottom' | 'left' | 'right' | 'top';
+    direction: number;
+  } {
+    const point = this.project(pos);
+    const width = this.canvasSize.x;
+    const height = this.canvasSize.y;
+    const x0 = width / 2;
+    const y0 = height / 2;
+
+    const dir = Math.atan2(point.y - y0, point.x - x0);
+    const aspectDir = Math.atan2(this.canvasSize.y, this.canvasSize.x);
+
+    let x: number;
+    let y: number;
+    let border: 'bottom' | 'left' | 'right' | 'top' = 'top';
+
+    if (-aspectDir < dir && aspectDir >= dir) {
+      // right border
+      x = width;
+      y = y0 + x0 * Math.tan(dir);
+      border = 'right';
+    } else if (-Math.PI + aspectDir < dir && -aspectDir >= dir) {
+      // top border
+      x = x0 + y0 * Math.tan(Math.PI / 2 + dir);
+      y = 0;
+      border = 'top';
+    } else if (aspectDir < dir && Math.PI - aspectDir >= dir) {
+      // bottom border
+      x = x0 + y0 * Math.tan((3 * Math.PI) / 2 - dir);
+      y = height;
+      border = 'bottom';
+    } else {
+      // left border
+      x = 0;
+      y = y0 + x0 * Math.tan(-dir + Math.PI);
+      border = 'left';
+    }
+
+    return { x, y, border, direction: dir };
   }
 }
 
