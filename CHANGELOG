@@ -3,7 +3,9 @@
 
 2023-01-xx                                                        v0.4.1
 
-Fixed `Transition.cancel()` stepping one frame after cancellation.
+Fixed `Transition.cancel()` stepping one frame after cancellation. Added
+a convenience method to calculate the border position of a frame towards
+a coordinates outside of the visible area.
 
 
 2023-01-13                                                        v0.4.0
