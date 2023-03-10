@@ -3,7 +3,8 @@
 
 2023-03-10                                                        v0.4.2
 
-tba
+Add an optional offset to the calculation of border positions towards
+coordinates outside of the visible area (contributor: Markus Stengel).
 
 
 2023-03-09                                                        v0.4.1
