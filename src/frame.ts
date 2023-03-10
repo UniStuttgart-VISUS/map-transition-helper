@@ -130,23 +130,34 @@ export default class Frame {
    * coordinate leaves the frame, and the direction (in radians) towards the
    * point from the center of the frame.
    *
-   * @param pos    Coordinate
-   * @returns obj  Positioning properties
+   * @param pos      Coordinate
+   * @param offset   Distance perpendicular to the border, inwards of the
+   *                 border. Negative values result in a position outside of
+   *                 the frame.
+   * @returns obj    Positioning properties
    */
-  borderPosition(pos: Coordinate | ViewPoint): {
+  borderPosition(
+    pos: Coordinate | ViewPoint,
+    offset = 0,
+  ): {
     x: number;
     y: number;
     border: 'bottom' | 'left' | 'right' | 'top';
     direction: number;
   } {
     const point = this.project(pos);
-    const width = this.canvasSize.x;
-    const height = this.canvasSize.y;
+    const width = this.canvasSize.x - 2 * offset;
+    const height = this.canvasSize.y - 2 * offset;
     const x0 = width / 2;
     const y0 = height / 2;
 
-    const dir = Math.atan2(point.y - y0, point.x - x0);
-    const aspectDir = Math.atan2(this.canvasSize.y, this.canvasSize.x);
+    /*
+     * We want to calculate the intersection of the ray from the frame center
+     * in the direction of the position with the frame border. So here, we need
+     * the actual canvas size and ignore the offset.
+     */
+    const aspectDir = Math.atan2(this.canvasSize.x, this.canvasSize.y);
+    const dir = Math.atan2(point.y - this.canvasSize.y / 2, point.x - this.canvasSize.x / 2);
 
     let x: number;
     let y: number;
@@ -173,6 +184,9 @@ export default class Frame {
       y = y0 + x0 * Math.tan(-dir + Math.PI);
       border = 'left';
     }
+
+    x += offset;
+    y += offset;
 
     return { x, y, border, direction: dir };
   }

@@ -305,6 +305,20 @@ function checkVisibility(evt, frame) {
       ctx.lineTo(x2, y2);
       ctx.closePath();
       ctx.fill();
+
+      // arrow segment, testing offset feature
+      const arrowSegmentLength = 20 + arrowSize;
+      const { x: segmentX, y: segmentY } = frame.borderPosition(place, arrowSegmentLength);
+      const startX = x + (arrowSize - 3) * Math.cos(direction + Math.PI);
+      const startY = y + (arrowSize - 3) * Math.sin(direction + Math.PI);
+
+      ctx.beginPath();
+      ctx.strokeStyle = 'black';
+      ctx.lineCap = 'round';
+      ctx.lineWidth = 3;
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(segmentX, segmentY);
+      ctx.stroke();
     }
   });
   ctx.restore();
