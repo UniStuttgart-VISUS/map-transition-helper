@@ -53,7 +53,7 @@ To use the library in another project, either build it and use the generated ES 
 Alternatively, it can be installed as an npm package, either from the command line:
 
 ``` bash
-$ npm install map-transition-helper@0.4.1
+$ npm install map-transition-helper@0.4.2
 ```
 
 or by adding the following to the `dependencies` property in the `package.json` of your project (with the appropriate version):
@@ -62,7 +62,7 @@ or by adding the following to the `dependencies` property in the `package.json` 
 {
     ...
     "dependencies": {
-        "map-transition-helper": "0.4.1",
+        "map-transition-helper": "0.4.2",
         ...
     },
     ...
@@ -516,10 +516,12 @@ This is the inverse of [`project`](#class-frame--project).
 
 Checks if the coordinate is within the drawable area of the canvas in the frame.
 
-##### `borderPosition(c: Coordinate | ViewPoint): { x, y, border, direction }`
+##### `borderPosition(c: Coordinate | ViewPoint, offset: number = 0): { x, y, border, direction }`
 
-Calculate the position at the border of the frame that is in the direction of a coordinate.
+Calculate the position `c` at the border of the frame that is in the direction of a coordinate.
 This can be used for positions that are visible in the current frame as well, but should not be.
+An optional parameter `offset` specifies the perpendicular distance of the point to the border it should lie on, with positive values going into the frame.
+This can be used to place objects of known size at the frame border in different alignments.
 Returns an object with the x and y coordinates relative to the frame, the border (top, left, bottom, or right) at which the shortest path to the coordinate leaves the frame, and the direction (in radians) towards the point from the center of the frame.
 
 

@@ -1,6 +1,12 @@
                              Release Notes
                              -------------
 
+2023-03-10                                                        v0.4.2
+
+Add an optional offset to the calculation of border positions towards
+coordinates outside of the visible area (contributor: Markus Stengel).
+
+
 2023-03-09                                                        v0.4.1
 
 Fixed `Transition.cancel()` stepping one frame after cancellation. Added
