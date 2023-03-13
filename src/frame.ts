@@ -153,10 +153,16 @@ export default class Frame {
 
     /*
      * We want to calculate the intersection of the ray from the frame center
-     * in the direction of the position with the frame border. So here, we need
-     * the actual canvas size and ignore the offset.
+     * in the direction of the position with the frame border, inset by
+     * `offset` in every direction. To determine which border the ray
+     * intersects with, we need to calculate the direction to one corner of the
+     * inset frame border from the center of the frame. Because the inset is
+     * constant on all sides, the aspect ratio might be different than that of
+     * the frame itself.
      */
-    const aspectDir = Math.atan2(this.canvasSize.x, this.canvasSize.y);
+    const aspectDir = Math.atan2(height, width);
+
+    // direction from center
     const dir = Math.atan2(point.y - this.canvasSize.y / 2, point.x - this.canvasSize.x / 2);
 
     let x: number;
