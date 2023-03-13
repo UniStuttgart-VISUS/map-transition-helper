@@ -49,8 +49,18 @@ const newYork1 = { label: 'new york', lat: 40.7084, lng: -74.0176, zoom: 3 };
 const newYork2 = { ...newYork1, zoom: 7 };
 const philadelphia = { label: 'philadelphia', lat: 39.9417, lng: -75.1571, zoom: 13 };
 const tokyo = { label: 'Tōkyō', lat: 35.689, lng: 139.692, zoom: 8 };
+const berlin = { label: 'Berlin', lat: 52.52, lng: 13.405, zoom: 8 };
 
-const places = [stuttgart1, pforzheim, germersheim, frankfurt1, newYork1, philadelphia, tokyo];
+const places = [
+  stuttgart1,
+  pforzheim,
+  germersheim,
+  frankfurt1,
+  newYork1,
+  philadelphia,
+  tokyo,
+  berlin,
+];
 
 // intermediate transitions
 const zoomOutStuttgart = createTransitionFunction(
@@ -289,7 +299,7 @@ function checkVisibility(evt, frame) {
       ctx.stroke();
     } else {
       // draw an arrow at the edge (y is down)
-      const { x, y, direction } = frame.borderPosition(place);
+      const { x, y, direction, border } = frame.borderPosition(place);
 
       const arrowSize = 15;
       const x1 = x + arrowSize * Math.cos(direction + Math.PI + Math.PI / 8);
@@ -308,7 +318,11 @@ function checkVisibility(evt, frame) {
 
       // arrow segment, testing offset feature
       const arrowSegmentLength = 20 + arrowSize;
-      const { x: segmentX, y: segmentY } = frame.borderPosition(place, arrowSegmentLength);
+      const {
+        x: segmentX,
+        y: segmentY,
+        border: borderArrow,
+      } = frame.borderPosition(place, arrowSegmentLength);
       const startX = x + (arrowSize - 3) * Math.cos(direction + Math.PI);
       const startY = y + (arrowSize - 3) * Math.sin(direction + Math.PI);
 
@@ -319,6 +333,25 @@ function checkVisibility(evt, frame) {
       ctx.moveTo(startX, startY);
       ctx.lineTo(segmentX, segmentY);
       ctx.stroke();
+
+      // simulate inset maps with an offset of arrowSegmentLength, check that
+      // they are placed on the correct border
+      const colors = {
+        top: 'firebrick',
+        bottom: 'forestgreen',
+        left: 'rebeccapurple',
+        right: 'steelblue',
+      };
+
+      ctx.beginPath();
+      ctx.strokeStyle = colors[borderArrow];
+      ctx.lineWidth = 2;
+      ctx.strokeRect(
+        segmentX - arrowSegmentLength,
+        segmentY - arrowSegmentLength,
+        2 * arrowSegmentLength,
+        2 * arrowSegmentLength,
+      );
     }
   });
   ctx.restore();
