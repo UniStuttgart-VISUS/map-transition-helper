@@ -72,15 +72,24 @@ export default class Frame {
   }
 
   /**
-   * Returns if a specific coordinate is visible in the frame.
+   * Returns if a specific coordinate is visible in the frame. Optionally, an
+   * offset can be passed, similar to the one specified in `borderPosition`. The
+   * offset is perpendicular to the border and positive inwards of the frame
+   * border.
    *
-   * @param coord Coordinate
+   * @param coord   Coordinate
+   * @param offset  number
    * @returns true if point is visible and false else
    */
-  isCoordinateVisible(coord: Coordinate): boolean {
+  isCoordinateVisible(coord: Coordinate, offset = 0): boolean {
     const { x, y } = this.project(coord);
 
-    return !(x < 0 || y < 0 || x >= this.canvasSize.x || y >= this.canvasSize.y);
+    return !(
+      x < offset ||
+      y < offset ||
+      x >= this.canvasSize.x - offset ||
+      y >= this.canvasSize.y - offset
+    );
   }
 
   /**

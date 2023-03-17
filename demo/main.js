@@ -371,7 +371,7 @@ function checkVisibility(evt, frame) {
             ctx.strokeStyle = 'none';
             ctx.fillStyle = visible ? 'green' : 'red';
             ctx.beginPath();
-            ctx.arc(x, y, 3, 0, 2 * Math.PI);
+            ctx.arc(x, y, 2, 0, 2 * Math.PI);
             ctx.closePath();
             ctx.fill();
           });
