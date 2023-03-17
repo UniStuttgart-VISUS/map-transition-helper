@@ -512,11 +512,14 @@ This is the inverse of [`unproject`](#class-frame--unproject).
 Calculate the latitude, longitude and zoom level shown at the pixel coordinate `coord`.
 This is the inverse of [`project`](#class-frame--project).
 
-##### `isCoordinateVisible(c: Coordinate): boolean`
+##### `isCoordinateVisible(c: Coordinate, offset: number = 0): boolean`
 
 Checks if the coordinate is within the drawable area of the canvas in the frame.
+Optionally, an offset can be passed, similar to the one specified in [`borderPosition`](#class-frame--borderposition).
+The offset is perpendicular to the border and positive inwards of the frame border.
 
-##### `borderPosition(c: Coordinate | ViewPoint, offset: number = 0): { x, y, border, direction }`
+
+##### <a id="class-frame--borderposition"></a>`borderPosition(c: Coordinate | ViewPoint, offset: number = 0): { x, y, border, direction }`
 
 Calculate the position `c` at the border of the frame that is in the direction of a coordinate.
 This can be used for positions that are visible in the current frame as well, but should not be.
