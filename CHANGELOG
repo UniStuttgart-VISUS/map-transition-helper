@@ -1,6 +1,12 @@
                              Release Notes
                              -------------
 
+2023-03-17                                                        v0.4.4
+
+Add an optional offset to the visibility calculation of coordinates in a
+frame. Remove unneeded dependencies.
+
+
 2023-03-13                                                        v0.4.3
 
 Fix a bug with the border calculation for border positions (#13).
