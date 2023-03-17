@@ -1,6 +1,6 @@
 {
   "name": "map-transition-helper",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "A library to compose smooth map transition animations. The required WebMercator tiles are then pre-loaded, and the transition is rendered in a Canvas.",
   "browser": "lib/map-transition-helper.umd.js",
   "module": "lib/map-transition-helper.esm.js",
@@ -64,7 +64,6 @@
     "rollup": "^3.9.0",
     "rollup-plugin-dts": "^5.1.0",
     "simple-git-hooks": "^2.8.1",
-    "ts-loader": "^9.4.2",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4"
   },
