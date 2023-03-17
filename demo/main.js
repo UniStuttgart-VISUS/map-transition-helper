@@ -352,6 +352,31 @@ function checkVisibility(evt, frame) {
         2 * arrowSegmentLength,
         2 * arrowSegmentLength,
       );
+
+      // test offset for isCoordinateVisible around the simulated inset map
+      [
+        [segmentX - arrowSegmentLength, segmentY - arrowSegmentLength, 1],
+        [segmentX + arrowSegmentLength, segmentY + arrowSegmentLength, -1],
+      ].forEach(([startX, startY, direction]) => {
+        [
+          [1, 0],
+          [0, 1],
+        ].forEach(([dx, dy]) => {
+          [0, 0.2, 0.4, 0.6, 0.8, 1].forEach((alpha) => {
+            const x = startX + direction * dx * alpha * 2 * arrowSegmentLength;
+            const y = startY + direction * dy * alpha * 2 * arrowSegmentLength;
+            const coords = frame.unproject({ x, y });
+            const visible = frame.isCoordinateVisible(coords, arrowSegmentLength);
+
+            ctx.strokeStyle = 'none';
+            ctx.fillStyle = visible ? 'green' : 'red';
+            ctx.beginPath();
+            ctx.arc(x, y, 2, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.fill();
+          });
+        });
+      });
     }
   });
   ctx.restore();
