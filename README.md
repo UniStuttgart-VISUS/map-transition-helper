@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8369746.svg)](https://doi.org/10.5281/zenodo.8369746)
+
 This library provides functionalities to define and compose animated transitions on maps, which are then rendered in a web page.
 The WebMercator map tiles required to show the transition are pre-loaded to ensure a smooth animation.
 **npm** package link: [https://www.npmjs.com/package/map-transition-helper](https://www.npmjs.com/package/map-transition-helper).
