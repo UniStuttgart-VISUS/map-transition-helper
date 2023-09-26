@@ -117,31 +117,30 @@ const aroundTheWorld = joinTransitions([
 ]);
 const vanWijkAndNuij = createVanWijkAndNuijTransition(
   stuttgart1,
-  frankfurt1,
+  newYork2,
   {
     x: canvas.width,
     y: canvas.height,
   },
-  1.4,
+  1.5,
 );
 let transition;
 requestAnimationFrame(async (_) => {
   document.body.toggleAttribute('inert', true);
   transition = await preloadTransition(
-    linearTransition,
+    vanWijkAndNuij,
     { x: canvas.width, y: canvas.height },
-    180,
+    300,
     tileMap,
   );
   registerEventListeners(transition);
+  requestAnimationFrame(() => {
+    document.querySelector('#initialize')?.click();
+  });
   document.body.toggleAttribute('inert', false);
 });
 
 const methodSelect = document.querySelector('#transition-method');
-requestAnimationFrame((_) => {
-  methodSelect.value = 'linear';
-});
-
 methodSelect.addEventListener('input', (evt) => {
   let promise;
 

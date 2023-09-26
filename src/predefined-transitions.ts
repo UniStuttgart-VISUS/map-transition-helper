@@ -1,6 +1,5 @@
 import { geoMercator } from 'd3-geo';
 
-import { calculateFrame } from '.';
 import type { Point2D, ViewPoint } from './points';
 import type { TransitionFunction } from './transition-function';
 import {
@@ -139,7 +138,7 @@ export function createTriangularTransition(
  * @param rho (optional)      Parameter ρ, which determines the shape of the
  *                            hyperbolic path in (u, w) space (see the paper).
  *                            If not passed, the recommended value of 1.4 is
- *                            used. be calculated to fit.
+ *                            used.
  * @returns f                 Hyperbolic transition from `p0` to `p1`
  */
 export function createVanWijkAndNuijTransition(
@@ -198,20 +197,6 @@ export function createVanWijkAndNuijTransition(
   const factorX = Math.cos(movementDirection);
   const factorY = Math.sin(movementDirection);
 
-  const canvasWidth = canvasSize.x;
-  const f0 = calculateFrame(canvasSize, p0);
-  const f1 = calculateFrame(canvasSize, p1);
-  const borderPosition0 = f0.borderPosition(p1);
-  const borderPosition1 = f1.borderPosition(p0);
-
-  // u1 is calculated assuming a motion over the total horizontal width. Zoom
-  // out further if the motion is along the shorter side.
-  const motionDiagonal = Math.sqrt(
-    Math.pow(borderPosition0.x - borderPosition1.x, 2) +
-      Math.pow(borderPosition0.y - borderPosition1.y, 2),
-  );
-  const motionScale = canvasWidth / motionDiagonal;
-
   const b0 = (w1 ** 2 - w0 ** 2 + rho ** 4 * (u1 - u0) ** 2) / (2 * w0 * rho ** 2 * (u1 - u0));
   const b1 = (w1 ** 2 - w0 ** 2 + -1 * rho ** 4 * (u1 - u0) ** 2) / (2 * w1 * rho ** 2 * (u1 - u0));
 
@@ -244,7 +229,7 @@ export function createVanWijkAndNuijTransition(
   const zoom = (t: number): number => {
     const s = t * S;
     const w_ = w(s);
-    const wNorm = Math.log2(w0 / (w_ * motionScale));
+    const wNorm = Math.log2(w0 / w_);
     const zoomLevel = p0.zoom + wNorm;
 
     return zoomLevel;
