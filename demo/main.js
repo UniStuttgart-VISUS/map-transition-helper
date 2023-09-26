@@ -11,6 +11,7 @@ const {
   createLinearZoomAndPanTransition,
   createBoxTransition,
   createTriangularTransition,
+  createVanWijkAndNuijTransition,
 } = MapTransitionHelper;
 
 const canvas = document.querySelector('canvas');
@@ -114,24 +115,32 @@ const aroundTheWorld = joinTransitions([
   createLinearPanTransition({ lat: 0, lng: 120, zoom: 3 }, { lat: 0, lng: -120 }),
   createLinearPanTransition({ lat: 0, lng: -120, zoom: 3 }, { lat: 0, lng: 0 }),
 ]);
+const vanWijkAndNuij = createVanWijkAndNuijTransition(
+  stuttgart1,
+  newYork2,
+  {
+    x: canvas.width,
+    y: canvas.height,
+  },
+  1.5,
+);
 let transition;
 requestAnimationFrame(async (_) => {
   document.body.toggleAttribute('inert', true);
   transition = await preloadTransition(
-    linearTransition,
+    vanWijkAndNuij,
     { x: canvas.width, y: canvas.height },
-    180,
+    300,
     tileMap,
   );
   registerEventListeners(transition);
+  requestAnimationFrame(() => {
+    document.querySelector('#initialize')?.click();
+  });
   document.body.toggleAttribute('inert', false);
 });
 
 const methodSelect = document.querySelector('#transition-method');
-requestAnimationFrame((_) => {
-  methodSelect.value = 'linear';
-});
-
 methodSelect.addEventListener('input', (evt) => {
   let promise;
 
@@ -173,6 +182,14 @@ methodSelect.addEventListener('input', (evt) => {
         aroundTheWorld,
         { x: canvas.width, y: canvas.height },
         180,
+        tileMap,
+      );
+      break;
+    case 'van Wijk and Nuij':
+      promise = preloadTransition(
+        vanWijkAndNuij,
+        { x: canvas.width, y: canvas.height },
+        300,
         tileMap,
       );
       break;

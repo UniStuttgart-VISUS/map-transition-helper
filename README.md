@@ -320,6 +320,27 @@ Then, continue panning and zooming in again until centered on `p1`.
 | `minZoom` | `number` (optional) | Zoom level for panning phase. If not given, will be calculated to fit. |
 
 
+##### `createVanWijkAndNuijTransition(p0: ViewPoint, p1: ViewPoint, canvasSize: Point2D, rho: number = 1.4): TransitionFunction`
+
+Create a transition following the hyperbolic path recommended by van Wijk and Nuij: *"Smooth and efficient zooming and panning"* (Proc. InfoVis, 2003).
+
+**Note:** As of now, this library only supports Mercator projection.
+This transition should be done in image space, even if the `TransitionFunction` outputs geographical space ViewPoints.
+For now, this function will assume Mercator projection is used for its internal calculations.
+This should be amended once different projections are supported.
+
+Create a (perceived) triangular transition:
+Zoom out and pan from `p0` to the midpoint between `p0` and `p1` in the image space, at which time both `p0` and `p1` will be visible.
+Then, continue panning and zooming in again until centered on `p1`.
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `p0` | `ViewPoint` | Start point |
+| `p1` | `ViewPoint` | End point |
+| `canvasSize` | `Point2D` | Size of the canvas the transition will run on |
+| `rho` | `number` (optional) | Parameter ρ, which determines the shape of the hyperbolic path in (u, w) space (see the paper). If not passed, the recommended value of 1.4 is used. |
+
+
 ### `preloadTransition` Function
 
 ``` typescript
