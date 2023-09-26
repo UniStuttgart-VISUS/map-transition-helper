@@ -6,6 +6,7 @@ export {
   createLinearZoomAndPanTransition,
   createPerceivedLinearZoomAndPanTransition,
   createTriangularTransition,
+  createVanWijkAndNuijTransition,
 } from './predefined-transitions';
 export { default as preloadTransition } from './preload';
 export { default as TileMap } from './tile-map';
