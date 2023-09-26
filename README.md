@@ -326,15 +326,6 @@ Create a transition following the hyperbolic path recommended by van Wijk and Nu
 This transition should be done in image space, even if the `TransitionFunction` outputs geographical space ViewPoints.
 For now, this function will assume Mercator projection is used for its internal calculations.
 This should be amended once different projections are supported.
- *
- * @param p0                  Start point
- * @param p1                  End point
- * @param canvasSize          Size of the canvas the transition will run on
- * @param rho (optional)      Parameter ρ, which determines the shape of the
- *                            hyperbolic path in (u, w) space (see the paper).
- *                            If not passed, the recommended value of 1.4 is
- *                            used. be calculated to fit.
- * @returns f                 Hyperbolic transition from `p0` to `p1`
 
 Create a (perceived) triangular transition:
 Zoom out and pan from `p0` to the midpoint between `p0` and `p1` in the image space, at which time both `p0` and `p1` will be visible.
