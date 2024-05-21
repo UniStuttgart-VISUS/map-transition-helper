@@ -55,7 +55,7 @@ To use the library in another project, either build it and use the generated ES 
 Alternatively, it can be installed as an npm package, either from the command line:
 
 ``` bash
-$ npm install map-transition-helper@0.4.4
+$ npm install map-transition-helper@0.5.0
 ```
 
 or by adding the following to the `dependencies` property in the `package.json` of your project (with the appropriate version):
@@ -64,7 +64,7 @@ or by adding the following to the `dependencies` property in the `package.json` 
 {
     ...
     "dependencies": {
-        "map-transition-helper": "0.4.4",
+        "map-transition-helper": "0.5.0",
         ...
     },
     ...
